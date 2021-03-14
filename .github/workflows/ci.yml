@@ -28,7 +28,7 @@ jobs:
     - name: test
       run: |
         mvn clean test
-        awk -F"," '{ instructions += $4 + $5; covered += $5 } END {"COV=", print 100*covered/instructions, }' target/site/jacoco/jacoco.csv >> $GITHUB_ENV
+        awk -F"," '{ instructions += $4 + $5; covered += $5 } END {"COV=", print 100*covered/instructions}' target/site/jacoco/jacoco.csv >> $GITHUB_ENV
         echo COV
     - name: Create the Badge
       uses: schneegans/dynamic-badges-action@v1.0.0
