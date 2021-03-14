@@ -1,7 +1,7 @@
 name: my CI test
 on: push
 jobs:
-  job:
+  job_build:
     runs-on: ubuntu-latest
     steps:
     - name: check
@@ -10,4 +10,13 @@ jobs:
         - javac -version
         - mvn -v
     - name: build
+      run: |
+        - mvn compile
+  job_test:
+    runs-on: ubuntu-latest
+    steps:
     - name: test
+      run: |
+        - mvn clean test
+        - awk -F"," '{ instructions += $4 + $5; covered += $5 } END { print covered, "/", instructions, "instructions covered"; print 100*covered/instructions, "% covered" }' target/site/jacoco/jacoco.csv
+    needs: job_build
