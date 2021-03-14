@@ -4,6 +4,10 @@ jobs:
   job_build:
     runs-on: ubuntu-latest
     steps:
+    - name: install Java
+      uses: actions/setup-java@v1
+      with:
+        java-version: 1.8
     - name: check
       run: |
         - java -version
