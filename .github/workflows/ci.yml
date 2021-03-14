@@ -28,15 +28,5 @@ jobs:
     - name: test
       run: |
         mvn clean test
-        awk -F"," '{ instructions += $4 + $5; covered += $5 } END {print "COV="; print 100*covered/instructions}' target/site/jacoco/jacoco.csv >> $GITHUB_ENV
-        echo $COV
-    - name: Create the Badge
-      uses: schneegans/dynamic-badges-action@v1.0.0
-      with:
-        auth: ${{ secrets.GIST_SECRET }}
-        gistID: 469718707db29b7e96789b125cdbf0d8
-        filename: test.json
-        label: The Answer is
-        message: ${{ env.COV }}
-        color: green
+        awk -F"," '{ instructions += $4 + $5; covered += $5 } END { print covered, "/", instructions, "instructions covered"; print 100*covered/instructions, "% covered" }' target/site/jacoco/jacoco.csv
     needs: job_build
