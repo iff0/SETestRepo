@@ -11,12 +11,12 @@ jobs:
         java-version: 1.8
     - name: check
       run: |
-        - java -version
-        - javac -version
-        - mvn -v
+        java -version
+        javac -version
+        mvn -v
     - name: build
       run: |
-        - mvn compile
+        mvn compile
   job_test:
     runs-on: ubuntu-latest
     steps:
@@ -27,6 +27,6 @@ jobs:
         java-version: 1.8
     - name: test
       run: |
-        - mvn clean test
-        - awk -F"," '{ instructions += $4 + $5; covered += $5 } END { print covered, "/", instructions, "instructions covered"; print 100*covered/instructions, "% covered" }' target/site/jacoco/jacoco.csv
+        mvn clean test
+        awk -F"," '{ instructions += $4 + $5; covered += $5 } END { print covered, "/", instructions, "instructions covered"; print 100*covered/instructions, "% covered" }' target/site/jacoco/jacoco.csv
     needs: job_build
