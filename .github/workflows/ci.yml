@@ -1,0 +1,15 @@
+name: my CI test
+on: push
+jobs:
+  job_pre:
+    runs-on: ubuntu-latest
+    steps:
+      - name: check
+        run: |
+          - java -version
+          - javac -version
+          - mvn -v
+  job_build:
+    needs: job_pre
+  job_test:
+    needs: [job_pre, job_build]
